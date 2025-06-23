@@ -1,5 +1,6 @@
 package it.epicode.BW_Final.service;
 
+import it.epicode.BW_Final.exception.UtenteNotFoundException;
 import it.epicode.BW_Final.model.Utente;
 import it.epicode.BW_Final.repository.UtenteRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,14 @@ public class UtenteDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Utente utente = utenteRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Utente non trovato: " + username));
+                .orElseThrow(() -> new UtenteNotFoundException("Utente non trovato: " + username));
 
         return User.builder()
                 .username(utente.getUsername())
                 .password(utente.getPassword())
                 .authorities(
                         utente.getRuoli().stream()
-                                .map(ruolo -> "ROLE_" + ruolo.getNome().name())
+                                .map(ruoloTipo -> "ROLE_" + ruoloTipo.name())
                                 .toArray(String[]::new)
                 )
                 .build();
