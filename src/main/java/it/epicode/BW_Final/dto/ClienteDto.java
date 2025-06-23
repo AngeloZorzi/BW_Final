@@ -1,6 +1,7 @@
 package it.epicode.BW_Final.dto;
 
 
+import it.epicode.BW_Final.enumeration.TipoCliente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +38,7 @@ public class ClienteDto {
     @NotEmpty
     private String logoAziendale;
     @NotEmpty
-    private String tipoCliente;
+    private TipoCliente tipoCliente;
     @NotNull
     private IndirizzoDto sedeLegale;
     @NotNull
