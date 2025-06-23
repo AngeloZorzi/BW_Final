@@ -1,7 +1,7 @@
 package it.epicode.BW_Final.controller;
 
 import it.epicode.BW_Final.dto.UtenteDto;
-import it.epicode.BW_Final.enumerating.RuoloTipo;
+import it.epicode.BW_Final.enumeration.RuoloTipo;
 import it.epicode.BW_Final.model.Utente;
 import it.epicode.BW_Final.security.JwtUtil;
 import it.epicode.BW_Final.service.UtenteService;

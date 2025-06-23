@@ -3,7 +3,7 @@ package it.epicode.BW_Final.service;
 import it.epicode.BW_Final.exception.RuoloNotFoundException;
 import it.epicode.BW_Final.model.Utente;
 import it.epicode.BW_Final.model.Ruolo;
-import it.epicode.BW_Final.enumerating.RuoloTipo;
+import it.epicode.BW_Final.enumeration.RuoloTipo;
 import it.epicode.BW_Final.repository.UtenteRepository;
 import it.epicode.BW_Final.repository.RuoloRepository;
 import jakarta.transaction.Transactional;

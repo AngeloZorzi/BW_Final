@@ -1,7 +1,7 @@
 package it.epicode.BW_Final.repository;
 
 import it.epicode.BW_Final.model.Ruolo;
-import it.epicode.BW_Final.enumerating.RuoloTipo;
+import it.epicode.BW_Final.enumeration.RuoloTipo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

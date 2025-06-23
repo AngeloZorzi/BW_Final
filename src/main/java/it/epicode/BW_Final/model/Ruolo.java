@@ -1,6 +1,6 @@
 package it.epicode.BW_Final.model;
 
-import it.epicode.BW_Final.enumerating.RuoloTipo;
+import it.epicode.BW_Final.enumeration.RuoloTipo;
 import jakarta.persistence.*;
 import lombok.*;
 
