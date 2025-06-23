@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
@@ -37,7 +38,12 @@ public class AuthController {
                 .avatar(dto.getAvatar())
                 .build();
 
-        Utente salvato = utenteService.registraUtente(nuovoUtente, Collections.singleton(RuoloTipo.USER));
+
+        Set<RuoloTipo> ruoli = dto.getRuoli() != null && !dto.getRuoli().isEmpty()
+                ? dto.getRuoli()
+                : Collections.singleton(RuoloTipo.USER);
+
+        Utente salvato = utenteService.registraUtente(nuovoUtente, ruoli);
         return ResponseEntity.ok(salvato);
     }
 

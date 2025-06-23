@@ -1,5 +1,6 @@
 package it.epicode.BW_Final.model;
 
+import it.epicode.BW_Final.enumeration.RuoloTipo;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,11 +34,10 @@ public class Utente {
 
     private String avatar;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "utente_ruolo",
-            joinColumns = @JoinColumn(name = "utente_id"),
-            inverseJoinColumns = @JoinColumn(name = "ruolo_id")
-    )
-    private Set<Ruolo> ruoli = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "utente_ruoli", joinColumns = @JoinColumn(name = "utente_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ruolo")
+    private Set<RuoloTipo> ruoli = new HashSet<>();
 }
