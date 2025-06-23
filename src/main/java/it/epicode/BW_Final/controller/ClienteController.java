@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @RestController
+@RequestMapping("/api")
 public class ClienteController {
 
 
