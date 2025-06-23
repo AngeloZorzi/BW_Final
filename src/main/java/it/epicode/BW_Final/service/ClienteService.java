@@ -16,6 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Service
 public class ClienteService {
 @Autowired
@@ -118,6 +121,24 @@ public void deleteCliente(int id){
         return clienteRepository.findByRagioneSocialeContainingIgnoreCase(nome, pageable);
     }
 
+    public Page<Cliente> getClientiByFatturatoAnnuale(BigDecimal minFatt,BigDecimal MaxFatt, int page, int size, String sortBy){
+    Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
+    return clienteRepository.findByFatturatoBetween(minFatt,MaxFatt,pageable);
 
+    }
+    public Page<Cliente> getClientiByDataInserimento(LocalDate dataMin, LocalDate dataMax, int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
+        return clienteRepository.findByDataInserimentoBetween(dataMin,dataMax,pageable);
 
+    }
+
+    public Page<Cliente> getClientiByUltimoContatto(LocalDate dataMin, LocalDate dataMax, int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
+        return clienteRepository.findByDataUltimoContattoBetween(dataMin,dataMax,pageable);
+
+    }
+    public Page<Cliente> getClientiBySedeLegale(String provincia,int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
+        return clienteRepository.findByProvinciaSedeLegale(provincia,pageable);
+    }
 }
