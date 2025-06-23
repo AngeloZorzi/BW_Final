@@ -33,11 +33,11 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "sede_legale_id")
     private Indirizzo sedeLegale;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "sede_operativa_id")
     private Indirizzo sedeOperativa;
 
