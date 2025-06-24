@@ -8,6 +8,8 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -41,9 +43,7 @@ public class Cliente {
     @JoinColumn(name = "sede_operativa_id")
     private Indirizzo sedeOperativa;
 
-    @OneToMany(mappedBy = "cliente")
-    private Fattura fattura;
-
-
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Fattura> fatture = new ArrayList<>();
 
 }
