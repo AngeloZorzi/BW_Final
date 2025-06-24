@@ -19,7 +19,7 @@ public class FatturaMapper {
         dto.setImporto(f.getImporto());
         dto.setNumero(f.getNumero());
         dto.setStato(f.getStato().getNome());
-        dto.setClienteId(f.getCliente().getId());
+        dto.setClienteId((long) f.getCliente().getId());
         return dto;
     }
 
