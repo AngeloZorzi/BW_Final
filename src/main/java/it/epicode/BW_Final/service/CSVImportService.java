@@ -27,8 +27,11 @@ public class CSVImportService {
             csvReader.readNext(); // skip header
 
             while ((line = csvReader.readNext()) != null) {
-                String nome = line[0].trim();
-                String sigla = line[1].trim();
+                if (line.length < 2) continue; // evita errori
+
+                String sigla = line[0].trim();
+                String nome = line[1].trim();
+
                 if (nome.isEmpty() || sigla.isEmpty()) continue;
 
                 if (provinciaRepo.findByNomeIgnoreCase(nome).isEmpty()) {
