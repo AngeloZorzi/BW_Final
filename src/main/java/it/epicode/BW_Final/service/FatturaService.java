@@ -28,13 +28,13 @@ public class FatturaService {
     }
 
     public FatturaDTO create(FatturaDTO dto) {
-        Cliente cliente = clienteRepo.findById(dto.getClienteId()).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
+        Cliente cliente = clienteRepo.findById(Math.toIntExact(dto.getClienteId())).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
         Fattura fattura = mapper.toEntity(dto, cliente);
         return mapper.toDTO(repo.save(fattura));
     }
 
     public FatturaDTO update(Long id, FatturaDTO dto) {
-        Cliente cliente = clienteRepo.findById(dto.getClienteId()).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
+        Cliente cliente = clienteRepo.findById(Math.toIntExact(dto.getClienteId())).orElseThrow(() -> new RuntimeException("Cliente non trovato"));
         Fattura fattura = mapper.toEntity(dto, cliente);
         fattura.setId(id);
         return mapper.toDTO(repo.save(fattura));
