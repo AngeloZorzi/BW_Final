@@ -51,7 +51,7 @@ public class ClienteDto {
     @NotEmpty
     private String logoAziendale;
 
-    @NotEmpty
+
     private TipoCliente tipoCliente;
 
     @NotNull(message = "L'indirizzo della sede legale è obbligatorio")
