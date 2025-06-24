@@ -41,6 +41,8 @@ public class Cliente {
     @JoinColumn(name = "sede_operativa_id")
     private Indirizzo sedeOperativa;
 
+    @OneToMany(mappedBy = "cliente")
+    private Fattura fattura;
 
 
 
