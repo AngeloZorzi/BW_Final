@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import java.util.List;
-import java.util.ArrayList;
-
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -44,10 +43,7 @@ public class Cliente {
     @JoinColumn(name = "sede_operativa_id")
     private Indirizzo sedeOperativa;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Fattura> fatture = new ArrayList<>();
-
-
-
 
 }
