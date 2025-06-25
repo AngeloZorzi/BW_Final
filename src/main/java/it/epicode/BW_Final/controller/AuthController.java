@@ -47,6 +47,7 @@ public class AuthController {
         return ResponseEntity.ok(salvato);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         Authentication auth = authManager.authenticate(
