@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class StatoFattura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String nome;
 }
