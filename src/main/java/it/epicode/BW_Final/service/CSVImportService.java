@@ -24,15 +24,14 @@ public class CSVImportService {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
              CSVReader csvReader = new CSVReader(br)) {
             String[] line;
-            csvReader.readNext(); // skip header
+            csvReader.readNext();
 
             while ((line = csvReader.readNext()) != null) {
-                if (line.length < 2) continue; // evita errori
+                if (line.length < 2) continue;
 
-                String sigla = line[0].trim();
-                String nome = line[1].trim();
-
-                if (nome.isEmpty() || sigla.isEmpty()) continue;
+                String nome = line[0].trim();
+                String sigla = line[1].trim();
+                if (nome.isBlank() || sigla.isBlank()) continue;
 
                 if (provinciaRepo.findByNomeIgnoreCase(nome).isEmpty()) {
                     Provincia provincia = new Provincia(null, nome, sigla);
@@ -49,8 +48,12 @@ public class CSVImportService {
             csvReader.readNext();
 
             while ((line = csvReader.readNext()) != null) {
+                if (line.length < 4) continue;
+
                 String nomeComune = line[2].trim();
                 String nomeProvincia = line[3].trim();
+
+                if (nomeComune.isBlank() || nomeProvincia.isBlank()) continue;
 
                 Optional<Provincia> provinciaOpt = provinciaRepo.findByNomeIgnoreCase(nomeProvincia);
                 if (provinciaOpt.isPresent() && comuneRepo.findByNomeIgnoreCase(nomeComune).isEmpty()) {
@@ -61,4 +64,3 @@ public class CSVImportService {
         }
     }
 }
-
