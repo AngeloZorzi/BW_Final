@@ -79,21 +79,37 @@ public class CSVImportService {
             csvReader.readNext(); // salta intestazione
 
             while ((line = csvReader.readNext()) != null) {
-                if (line.length < 4) continue;
+                // Verifica che ci siano almeno 3 colonne
+                if (line.length < 3) {
+                    System.out.println("Riga scartata (meno di 3 colonne): " + Arrays.toString(line));
+                    continue;
+                }
 
                 String nomeComune = line[2].trim();
-                String nomeProvincia = line[3].trim();
+                String nomeProvincia = line.length > 3 ? line[3].trim() : ""; // Se esiste una quarta colonna
 
-                if (nomeComune.isBlank() || nomeProvincia.isBlank()) continue;
+                if (nomeComune.isBlank() || nomeProvincia.isBlank()) {
+                    System.out.println("Riga con campo vuoto: " + Arrays.toString(line));
+                    continue;
+                }
 
                 Provincia provincia = provinciaMap.get(nomeProvincia.toLowerCase());
-                if (provincia != null && !existingComuneNames.contains(nomeComune.toLowerCase())) {
+                if (provincia == null) {
+                    System.out.println("Provincia non trovata per: " + nomeProvincia);
+                    continue;
+                }
+
+                if (!existingComuneNames.contains(nomeComune.toLowerCase())) {
                     Comune comune = new Comune(null, nomeComune, provincia);
                     comuneRepo.save(comune);
-                    existingComuneNames.add(nomeComune.toLowerCase()); // aggiorno set in memoria
+                    existingComuneNames.add(nomeComune.toLowerCase());
+                    System.out.println("Comune salvato: " + nomeComune + " (" + nomeProvincia + ")");
+                } else {
+                    System.out.println("Comune già esistente: " + nomeComune);
                 }
             }
         }
     }
+
 }
 
