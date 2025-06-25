@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./BW.css";
+import "../src/assets/BW.css";
 
 const Dashboard = () => {
   const [utente, setUtente] = useState(null);

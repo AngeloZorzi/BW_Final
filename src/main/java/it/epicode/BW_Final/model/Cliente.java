@@ -39,7 +39,7 @@ public class Cliente {
     @JoinColumn(name = "sede_legale_id")
     private Indirizzo sedeLegale;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sede_operativa_id")
     private Indirizzo sedeOperativa;
 
