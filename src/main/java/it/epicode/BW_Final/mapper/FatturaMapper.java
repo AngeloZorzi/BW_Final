@@ -18,10 +18,17 @@ public class FatturaMapper {
         dto.setData(f.getData());
         dto.setImporto(f.getImporto());
         dto.setNumero(f.getNumero());
-        dto.setStato(f.getStato().getNome());
+
+        if (f.getStato() != null) {
+            dto.setStato(f.getStato().getNome());
+        } else {
+            dto.setStato("NON ASSEGNATA");
+        }
+
         dto.setClienteId((long) f.getCliente().getId());
         return dto;
     }
+
 
     public Fattura toEntity(FatturaDTO dto, Cliente cliente) {
         Fattura f = new Fattura();
