@@ -103,4 +103,27 @@ public class ComuneController {
         comuneRepo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/provincia/{provinciaId}")
+    public List<Comune> getByProvinciaId(@PathVariable Long provinciaId) {
+        return comuneRepo.findByProvinciaId(provinciaId);
+    }
+
+
+    @GetMapping("/search")
+    public List<Comune> getByProvinciaNome(@RequestParam String provincia) {
+        return comuneRepo.findByProvincia_NomeIgnoreCase(provincia);
+    }
+
+    @GetMapping("/nome")
+    public ResponseEntity<Comune> getByNome(@RequestParam String nome) {
+        return comuneRepo.findByNomeIgnoreCase(nome)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search/nome")
+    public List<Comune> searchByNome(@RequestParam String nome) {
+        return comuneRepo.findByNomeContainingIgnoreCase(nome);
+    }
 }
