@@ -3,12 +3,14 @@ package it.epicode.BW_Final.controller;
 import it.epicode.BW_Final.model.StatoFattura;
 import it.epicode.BW_Final.repository.StatoFatturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/statifattura")
+@PreAuthorize("hasRole('ADMIN')")
 public class StatoFatturaController {
 
     @Autowired
