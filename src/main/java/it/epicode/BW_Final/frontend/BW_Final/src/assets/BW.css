@@ -3,7 +3,6 @@ html,
 #root {
   height: 100%;
   margin: 0;
-  background: linear-gradient(135deg, #a1c4fd 0%, #9bfff8 100%);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -138,4 +137,8 @@ input[type="password"]:focus {
   text-align: center;
   font-style: italic;
   font-weight: 500;
+}
+
+.Dashboard-body{
+  background: white;
 }

@@ -1,67 +1,77 @@
-import React, { useEffect, useState } from "react";
 import "../src/assets/BW.css";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { Form, InputGroup, FormControl } from "react-bootstrap";
+import { FaSearch } from "react-icons/fa";
 
 const Dashboard = () => {
-  const [utente, setUtente] = useState(null);
-  const [errore, setErrore] = useState(null);
-
-  useEffect(() => {
-    const fetchUtente = async () => {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        setErrore("Token mancante. Effettua di nuovo il login.");
-        return;
-      }
-
-      try {
-        const response = await fetch("http://localhost:8081/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setUtente(data);
-        } else {
-          setErrore("Accesso negato. Token non valido o scaduto.");
-        }
-        // eslint-disable-next-line no-unused-vars
-      } catch (err) {
-        setErrore("Errore nella comunicazione col server.");
-      }
-    };
-
-    fetchUtente();
-  }, []);
-
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-card">
-        <h3 className="dashboard-title">Dashboard</h3>
-
-        {errore && <div className="alert alert-danger">{errore}</div>}
-
-        {utente ? (
-          <>
-            <h4 className="dashboard-greeting">
-              Ciao, {utente.nome} {utente.cognome} 👋
-            </h4>
-            <p>
-              <strong>Email:</strong> {utente.email}
-            </p>
-            <p>
-              <strong>Ruoli:</strong> {utente.ruoli?.join(", ")}
-            </p>
-          </>
-        ) : (
-          !errore && (
-            <div className="dashboard-loading">Caricamento in corso...</div>
-          )
-        )}
-      </div>
-    </div>
+    <Navbar expand="lg" className="bg-body-white">
+      <Container className="mx-5 px-5 ">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Row className="w-100">
+            <Col className="p-1 col-6">
+              <Nav className="d-flex justify-content-between">
+                <Nav.Link
+                  href="#home"
+                  className=" fw-bold text-primary-emphasis"
+                >
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  href="#link"
+                  className=" fw-bold text-primary-emphasis"
+                >
+                  Our company
+                </Nav.Link>
+                <Nav.Link
+                  href="#about"
+                  className="fw-bold text-primary-emphasis"
+                >
+                  Carrers
+                </Nav.Link>
+                <Nav.Link
+                  href="#services"
+                  className="fw-bold text-primary-emphasis"
+                >
+                  Inventor
+                </Nav.Link>
+                <Nav.Link
+                  href="#contact"
+                  className="fw-bold text-primary-emphasis"
+                >
+                  Contact us
+                </Nav.Link>
+              </Nav>
+            </Col>
+            <Col className="col-6">
+              <Nav className="">
+                {" "}
+                <Form className="d-flex">
+                  <InputGroup>
+                    <InputGroup.Text>
+                      <FaSearch />
+                    </InputGroup.Text>
+                    <FormControl
+                      type="search"
+                      placeholder="Cerca..."
+                      className="me-2"
+                      aria-label="Search"
+                    />
+                  </InputGroup>
+                </Form>
+              </Nav>
+            </Col>
+          </Row>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
