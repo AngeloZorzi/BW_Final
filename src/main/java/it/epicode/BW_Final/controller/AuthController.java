@@ -47,6 +47,7 @@ public class AuthController {
         return ResponseEntity.ok(salvato);
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         Authentication auth = authManager.authenticate(
