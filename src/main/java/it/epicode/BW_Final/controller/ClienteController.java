@@ -4,6 +4,7 @@ package it.epicode.BW_Final.controller;
 import it.epicode.BW_Final.dto.ClienteDto;
 import it.epicode.BW_Final.model.Cliente;
 import it.epicode.BW_Final.service.ClienteService;
+import it.epicode.BW_Final.service.CloudinaryService;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -13,7 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -24,6 +27,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/clienti")
@@ -117,6 +123,13 @@ public class ClienteController {
     @DeleteMapping("/clienti/{id}")
     public void deleteCliente(@PathVariable int id){
         clienteService.deleteCliente(id);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/clienti/{id}/logo")
+    public Cliente uploadLogo(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
+        String imageUrl = cloudinaryService.uploadFile(file);
+        return clienteService.setLogoCliente(id, imageUrl);
     }
 
 
