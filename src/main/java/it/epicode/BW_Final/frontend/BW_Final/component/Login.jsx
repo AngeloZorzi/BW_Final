@@ -21,9 +21,11 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
+        console.log({ username, password });
         navigate("/me");
       } else {
         setErrore("Credenziali non valide");
+        console.log({ username, password });
       }
     } catch {
       setErrore("Errore di connessione al server");

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../src/assets/BW.css";
 
-const Login = () => {
+const Registrazione = () => {
   const [nome, setNome] = useState("");
   const [cognome, setCognome] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errore, setErrore] = useState("");
+  const [email, setEmail] = useState("");
+  const [avatar, setAvatar] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -17,7 +19,15 @@ const Login = () => {
       const response = await fetch("http://localhost:8080/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, cognome, username, password }),
+        body: JSON.stringify({
+          nome,
+          cognome,
+          username,
+          password,
+          email,
+          avatar,
+          ruoli: ["USER"],
+        }),
       });
 
       if (response.ok) {
@@ -54,6 +64,18 @@ const Login = () => {
         />
         <input
           type="text"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Avatar URL"
+          value={avatar}
+          onChange={(e) => setAvatar(e.target.value)}
+        />
+        <input
+          type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -68,11 +90,11 @@ const Login = () => {
         />
 
         <button type="submit" className="btn-login">
-          Login
+          Registrati
         </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Registrazione;
