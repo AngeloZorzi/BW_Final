@@ -1,5 +1,6 @@
 package it.epicode.BW_Final.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.epicode.BW_Final.enumeration.TipoCliente;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -37,13 +38,16 @@ public class Cliente {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sede_legale_id")
+    @JsonManagedReference
     private Indirizzo sedeLegale;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sede_operativa_id")
+    @JsonManagedReference
     private Indirizzo sedeOperativa;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Fattura> fatture = new ArrayList<>();
 
 }

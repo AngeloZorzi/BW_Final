@@ -116,6 +116,12 @@ public void deleteCliente(int id){
     clienteRepository.delete(cliente);
 }
 
+    public Cliente setLogoCliente(int id, String imageUrl) {
+        Cliente cliente = getCliente(id);
+        cliente.setLogoAziendale(imageUrl);
+        return clienteRepository.save(cliente);
+    }
+
     public Page<Cliente> getClientiByNome(String nome, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return clienteRepository.findByRagioneSocialeContainingIgnoreCase(nome, pageable);
