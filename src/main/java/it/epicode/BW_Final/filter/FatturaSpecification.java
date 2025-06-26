@@ -32,7 +32,37 @@ public class FatturaSpecification {
         };
     }
 
-    public static Specification<Fattura> allFilters(Long clienteId, String stato, LocalDate data, Integer anno, BigDecimal minImporto, BigDecimal maxImporto) {
-        return null;
+    public static Specification<Fattura> allFilters(
+            Long clienteId,
+            String stato,
+            LocalDate data,
+            Integer anno,
+            BigDecimal minImporto,
+            BigDecimal maxImporto
+    ) {
+        Specification<Fattura> spec = (root, query, cb) -> cb.conjunction(); // crea uno "spec" vuoto
+
+        if (clienteId != null) {
+            spec = spec.and(byCliente(clienteId));
+        }
+
+        if (stato != null) {
+            spec = spec.and(byStato(stato));
+        }
+
+        if (data != null) {
+            spec = spec.and(byData(data));
+        }
+
+        if (anno != null) {
+            spec = spec.and(byAnno(anno));
+        }
+
+        if (minImporto != null || maxImporto != null) {
+            spec = spec.and(byImportoBetween(minImporto, maxImporto));
+        }
+
+        return spec;
     }
+
 }
