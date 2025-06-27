@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Pageable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ClienteRepository extends JpaRepository<Cliente,Integer>, JpaSpecificationExecutor<Cliente> {
 
@@ -36,6 +37,6 @@ public interface ClienteRepository extends JpaRepository<Cliente,Integer>, JpaSp
     @Query("SELECT c FROM Cliente c WHERE LOWER(c.sedeLegale.comune.provincia.nome) = LOWER(:provincia)")
     Page<Cliente> findByProvinciaSedeLegale(@Param("provincia") String provincia, Pageable pageable);
 
-
+    List<Cliente> findByDataInserimentoBetween(LocalDate dataMin, LocalDate dataMax);
 
 }

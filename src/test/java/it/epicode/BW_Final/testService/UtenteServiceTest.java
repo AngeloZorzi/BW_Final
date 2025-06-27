@@ -1,6 +1,7 @@
 package it.epicode.BW_Final.testService;
 
 import it.epicode.BW_Final.enumeration.RuoloTipo;
+import it.epicode.BW_Final.exception.NotFoundException;
 import it.epicode.BW_Final.model.Utente;
 import it.epicode.BW_Final.repository.UtenteRepository;
 import it.epicode.BW_Final.service.UtenteService;
@@ -66,12 +67,20 @@ class UtenteServiceTest {
     }
 
     @Test
-    void findByUsername_shouldReturnUtente() {
+    void findByUsername_shouldReturnUtente() throws NotFoundException {
         when(utenteRepository.findByUsername("johndoe")).thenReturn(Optional.of(utente));
 
-        Optional<Utente> result = utenteService.findByUsername("johndoe");
+        Utente result = utenteService.findByUsername("johndoe");
 
-        assertTrue(result.isPresent());
-        assertEquals("johndoe@example.com", result.get().getEmail());
+        assertEquals("johndoe@example.com", result.getEmail());
+    }
+
+    @Test
+    void findByUsername_shouldThrowNotFoundException_whenUserNotFound() {
+        when(utenteRepository.findByUsername("missinguser")).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> {
+            utenteService.findByUsername("missinguser");
+        });
     }
 }

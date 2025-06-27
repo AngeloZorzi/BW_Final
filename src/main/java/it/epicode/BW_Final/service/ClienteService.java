@@ -15,9 +15,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import java.time.Month;
+import java.util.TreeMap;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
@@ -135,7 +140,6 @@ public void deleteCliente(int id){
     public Page<Cliente> getClientiByDataInserimento(LocalDate dataMin, LocalDate dataMax, int page, int size, String sortBy){
         Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
         return clienteRepository.findByDataInserimentoBetween(dataMin,dataMax,pageable);
-
     }
 
     public Page<Cliente> getClientiByUltimoContatto(LocalDate dataMin, LocalDate dataMax, int page, int size, String sortBy){
@@ -146,5 +150,17 @@ public void deleteCliente(int id){
     public Page<Cliente> getClientiBySedeLegale(String provincia,int page, int size, String sortBy){
         Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
         return clienteRepository.findByProvinciaSedeLegale(provincia,pageable);
+    }
+
+    public Map<Month, Long> getClientiPerMeseJava(LocalDate dataMin, LocalDate dataMax) {
+        List<Cliente> clienti = clienteRepository.findByDataInserimentoBetween(dataMin,dataMax);
+
+        // Raggruppa per mese e conta quanti clienti in ogni mese
+        return clienti.stream()
+                .collect(Collectors.groupingBy(
+                        c -> c.getDataInserimento().getMonth(),
+                        TreeMap::new,
+                        Collectors.counting()
+                ));
     }
 }

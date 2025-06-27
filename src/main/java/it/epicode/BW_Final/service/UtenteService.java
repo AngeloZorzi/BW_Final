@@ -1,5 +1,6 @@
 package it.epicode.BW_Final.service;
 
+import it.epicode.BW_Final.exception.NotFoundException;
 import it.epicode.BW_Final.model.Utente;
 import it.epicode.BW_Final.enumeration.RuoloTipo;
 import it.epicode.BW_Final.repository.UtenteRepository;
@@ -29,7 +30,7 @@ public class UtenteService {
         return utenteRepository.findByEmail(email);
     }
 
-    public Optional<Utente> findByUsername(String username) {
-        return utenteRepository.findByUsername(username);
+    public Utente findByUsername(String username) throws NotFoundException {
+        return utenteRepository.findByUsername(username).orElseThrow(()-> new NotFoundException("Utente non trovato"));
     }
 }

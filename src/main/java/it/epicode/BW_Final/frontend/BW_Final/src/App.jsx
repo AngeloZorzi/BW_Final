@@ -5,7 +5,8 @@ import Login from "../component/Login";
 import Dashboard from "../component/Dashboard";
 import Registrazione from "../component/Registrazione";
 import Titolo from "../component/Titolo";
-
+import BarraSuperiore from "../component/BarraSuperiore";
+import BarraLaterale from "../component/BarraLaterale";
 const App = () => {
   const isLoggedIn = !!localStorage.getItem("token");
 
@@ -17,6 +18,15 @@ const App = () => {
           <>
             <Titolo />
             <Dashboard />
+          </>
+        }
+      />
+      <Route
+        path="/amministratore"
+        element={
+          <>
+            <BarraSuperiore />
+            <BarraLaterale />
           </>
         }
       />

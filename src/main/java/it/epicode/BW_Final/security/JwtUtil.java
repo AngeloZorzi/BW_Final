@@ -18,9 +18,11 @@ public class JwtUtil {
     public JwtUtil(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expiration) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.expiration = expiration;
+        System.out.println(">>> JWT EXPIRATION (dal .properties): " + expiration + " ms");
     }
 
     public String generateToken(String username, String roles) {
+
         return Jwts.builder()
                 .setSubject(username)
                 .claim("roles", roles)
@@ -28,6 +30,7 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
+
     }
 
     public String extractUsername(String token) {

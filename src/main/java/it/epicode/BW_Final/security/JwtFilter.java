@@ -31,18 +31,20 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
 
 
+
         if (path.startsWith("/auth/")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String authHeader = request.getHeader("Authorization");
+
         String token = null;
         String username = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            try {
+                try {
                 username = jwtUtil.extractUsername(token);
             } catch (TokenExpiredException e) {
 

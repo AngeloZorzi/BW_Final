@@ -53,7 +53,7 @@ const Dashboard = () => {
             <Col className="col-6">
               <Nav className="">
                 {" "}
-                <Form className="d-flex">
+                <Form className="d-flex ">
                   <InputGroup>
                     <InputGroup.Text>
                       <FaSearch />
