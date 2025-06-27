@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../src/assets/BW.css";
 
 const Registrazione = () => {
@@ -16,7 +16,7 @@ const Registrazione = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/auth/register", {
+      const response = await fetch("http://localhost:8081/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,6 +92,12 @@ const Registrazione = () => {
         <button type="submit" className="btn-login">
           Registrati
         </button>
+
+        <div style={{ marginTop: "1rem", textAlign: "center" }}>
+          <Link to="/login" className="text-neon" style={{ fontWeight: "600" }}>
+            Già registrato? Login
+          </Link>
+        </div>
       </form>
     </div>
   );

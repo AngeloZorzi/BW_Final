@@ -51,9 +51,10 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/about").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/import/**").hasRole("ADMIN")
+                        .requestMatchers("/api/import/**", "/clienti").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
 

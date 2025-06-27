@@ -1,65 +1,139 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
+import { Dropdown } from "react-bootstrap";
+import logo from "../src/assets/logo.jpg";
 import "../src/assets/BW.css";
 
 const Dashboard = () => {
-  const [utente, setUtente] = useState(null);
-  const [errore, setErrore] = useState(null);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const fetchUtente = async () => {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        setErrore("Token mancante. Effettua di nuovo il login.");
-        return;
-      }
-
-      try {
-        const response = await fetch("http://localhost:8081/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    if (token) {
+      fetch("http://localhost:8081/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Errore nel recupero dati utente");
+          return res.json();
+        })
+        .then((data) => {
+          setUserData(data);
+        })
+        .catch((err) => {
+          console.error("Errore nel fetch dell'utente:", err);
+          localStorage.removeItem("token");
+          navigate("/login");
         });
+    }
+  }, [token, navigate]);
 
-        if (response.ok) {
-          const data = await response.json();
-          setUtente(data);
-        } else {
-          setErrore("Accesso negato. Token non valido o scaduto.");
-        }
-        // eslint-disable-next-line no-unused-vars
-      } catch (err) {
-        setErrore("Errore nella comunicazione col server.");
-      }
-    };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
-    fetchUtente();
-  }, []);
+  // Controllo se l’utente ha il ruolo ADMIN
+  const isAdmin = userData?.ruoli?.includes("ADMIN");
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-card">
-        <h3 className="dashboard-title">Dashboard</h3>
+    <div className="dashboard-body">
+      {/* === NAVBAR === */}
+      <Navbar expand="lg" className="custom-navbar">
+        <Container fluid>
+          <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
+            <img src={logo} alt="Epic Energi Logo" className="navbar-logo" />
+          </Navbar.Brand>
 
-        {errore && <div className="alert alert-danger">{errore}</div>}
+          <Navbar.Toggle
+            aria-controls="navbar-content"
+            className="navbar-toggle"
+          />
+          <Navbar.Collapse id="navbar-content">
+            <Nav className="ms-auto nav-links">
+              <Nav.Link as={Link} to="/" className="nav-item-link me-3">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/about" className="nav-item-link me-3">
+                About Us
+              </Nav.Link>
+              {token && (
+                <Nav.Link
+                  as={Link}
+                  to="/clienti"
+                  className="nav-item-link me-3"
+                >
+                  Clienti
+                </Nav.Link>
+              )}
+              {token && isAdmin && (
+                <Nav.Link as={Link} to="/admin" className="nav-item-link me-3">
+                  Area Admin
+                </Nav.Link>
+              )}
+              <Nav.Link
+                href="mailto:contatti@epicenergi.it?subject=Richiesta informazioni"
+                className="nav-item-link me-3"
+              >
+                Contact Us
+              </Nav.Link>
 
-        {utente ? (
-          <>
-            <h4 className="dashboard-greeting">
-              Ciao, {utente.nome} {utente.cognome} 👋
-            </h4>
-            <p>
-              <strong>Email:</strong> {utente.email}
-            </p>
-            <p>
-              <strong>Ruoli:</strong> {utente.ruoli?.join(", ")}
-            </p>
-          </>
-        ) : (
-          !errore && (
-            <div className="dashboard-loading">Caricamento in corso...</div>
-          )
-        )}
+              {!token ? (
+                <Nav.Link
+                  as={Link}
+                  to="/register"
+                  className="nav-item-register"
+                >
+                  Register
+                </Nav.Link>
+              ) : (
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="dark"
+                    className="user-dropdown border border-0 me-3"
+                  >
+                    {userData ? userData.username : "Utente"}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      {/* === CONTENUTO PRINCIPALE === */}
+      <div className="dashboard-container">
+        <div className="dashboard-card">
+          <h1 className="dashboard-title">
+            Benvenuto in <span className="highlight-text">EpiEnergy</span>
+          </h1>
+          <p className="dashboard-greeting">
+            {userData ? (
+              <>
+                Ciao{" "}
+                <strong>
+                  {userData.nome} {userData.cognome}
+                </strong>{" "}
+                👋
+              </>
+            ) : (
+              "Caricamento in corso..."
+            )}
+          </p>
+          <p className="dashboard-description">
+            Questa è la tua area personale. Da qui puoi gestire clienti,
+            contratti, offerte e molto altro.
+          </p>
+        </div>
       </div>
     </div>
   );
