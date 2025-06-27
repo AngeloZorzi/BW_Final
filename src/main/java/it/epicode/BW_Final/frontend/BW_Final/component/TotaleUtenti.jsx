@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../src/assets/BW.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const ToTaleClienti = () => {
-  const [totaleClienti, setTotaleClienti] = useState(0);
+const TotaleUtenti = () => {
+  const [totaleUtenti, setTotaleUtenti] = useState(0);
   const oggi = new Date().toLocaleDateString("it-IT");
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:8080/api/clienti", {
+    fetch("http://localhost:8080/amministratore/api/utenti", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,
@@ -17,18 +17,19 @@ const ToTaleClienti = () => {
       .then((response) => {
         if (!response.ok) {
           console.log(token);
-          throw new Error("Token non valido o scaduto");
+          throw new Error(`Errore HTTP ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
         console.log("Risposta:", data);
-        setTotaleClienti(data.totalElements);
+        setTotaleUtenti(data.totalElements);
       })
       .catch((error) => {
         console.error("Errore:", error.message);
       });
   }, []);
+
   return (
     <div className="card mt-3 ">
       <div className="card-body ">
@@ -40,11 +41,11 @@ const ToTaleClienti = () => {
           </p>
           <p className="p-0 m-0 fs-6"> dato aggiornato al:</p>
           <p className="p-0 m-0 fs-6">{oggi}</p>
-          <p className="fw-bold fs-3 pt-2 m-0">{totaleClienti}</p>
+          <p className="fw-bold fs-3 pt-2 m-0">{totaleUtenti}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default ToTaleClienti;
+export default TotaleUtenti;

@@ -7,9 +7,14 @@ import it.epicode.BW_Final.service.UtenteService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -34,5 +39,15 @@ public class UtenteController {
         String username = jwtUtil.extractUsername(token);
         Utente utente = utenteService.findByUsername(username);
         return ResponseEntity.ok(Map.of("utente", utente));
+    }
+
+    @GetMapping("/api/utenti")
+    public Page<Utente> getAllUtentePaginati(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return utenteService.getAllUtentePaginati(pageable);
     }
 }

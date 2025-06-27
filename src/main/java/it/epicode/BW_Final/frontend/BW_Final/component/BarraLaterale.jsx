@@ -12,8 +12,7 @@ const BarraLaterale = () => {
   const [nome, setNome] = useState("");
   const [cognome, setCognome] = useState("");
   const [imgErrore, setImgErrore] = useState(false);
-  const [isClicked1, setIsClicked1] = useState(true);
-  const [isClicked2, setIsClicked2] = useState(false);
+  const [sezioneAttiva, setSezioneAttiva] = useState("dashboard");
   const initial = nome.charAt(0).toUpperCase();
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const BarraLaterale = () => {
           <small className="p-0 mb-4">Web developer super bravo</small>
         </div>
         <span
-          onClick={() => setIsClicked1((prev) => !prev)}
+          onClick={() => setSezioneAttiva("dashboard")}
           className="text-white fw-bold "
         >
           <div className="d-flex flex-column align-items-center border-top border-2 border-secondary p-2">
@@ -83,7 +82,7 @@ const BarraLaterale = () => {
           </div>
         </span>
         <span
-          onClick={() => setIsClicked2((prev) => !prev)}
+          onClick={() => setSezioneAttiva("clienti")}
           className="text-white fw-bold "
         >
           <div className="d-flex flex-column align-items-center border-top border-2 border-secondary p-2">
@@ -91,8 +90,10 @@ const BarraLaterale = () => {
           </div>
         </span>
       </Container>
-      <div className="w-100">{isClicked1 && <DashbordAmministratore />}</div>
-      <div className="d-flex">{isClicked2 && <Clienti />}</div>
+      <div className="w-100">
+        {sezioneAttiva === "dashboard" && <DashbordAmministratore />}
+      </div>
+      <div className="d-flex">{sezioneAttiva === "clienti" && <Clienti />}</div>
     </div>
   );
 };

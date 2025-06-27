@@ -6,9 +6,12 @@ import it.epicode.BW_Final.enumeration.RuoloTipo;
 import it.epicode.BW_Final.repository.UtenteRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,5 +35,9 @@ public class UtenteService {
 
     public Utente findByUsername(String username) throws NotFoundException {
         return utenteRepository.findByUsername(username).orElseThrow(()-> new NotFoundException("Utente non trovato"));
+    }
+
+    public Page<Utente> getAllUtentePaginati(Pageable pageable) {
+        return utenteRepository.findAll(pageable);
     }
 }

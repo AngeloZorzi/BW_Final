@@ -31,18 +31,14 @@ const BarraSuperiore = () => {
       });
   }, []);
   return (
-    <Container fluid className="">
+    <Container fluid>
       <Row>
-        <Col
-          xl={2}
-          className="rettangolo-arancione d-flex align-items-center justify-content-center"
-        >
-          <h3 className="p-2 text-white">Epic Admin</h3>
-        </Col>
-        <Col
-          xl={10}
-          className="rettangolo-grigio d-flex align-items-center justify-content-center"
-        >
+        <div className="rettangolo-arancione">
+          <Col className=" d-flex align-items-center justify-content-center">
+            <h3 className="p-2 text-white">Epic Admin</h3>
+          </Col>
+        </div>
+        <Col className="rettangolo-grigio d-flex align-items-center justify-content-center">
           <h3 className="text-secondary">Benvenuto/a {username}</h3>
         </Col>
       </Row>
