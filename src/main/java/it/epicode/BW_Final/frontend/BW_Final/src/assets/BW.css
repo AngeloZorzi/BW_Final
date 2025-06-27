@@ -90,55 +90,364 @@ input[type="password"]:focus {
   box-shadow: 0 0 15px #ff4d6daa;
 }
 
-/* Container dashboard */
-.dashboard-container {
-  max-width: 700px;
-  margin: 5rem auto;
-  padding: 2rem 3rem;
+/* ==== BASE ==== */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(118, 75, 162, 0.7);
-  color: #f4f7ff;
+  background: linear-gradient(to bottom right, #eef6ff, #d2e5e3cc);
+  color: #1a1a1a;
 }
 
-/* Card dashboard: sfondo chiaro con ombra intensa */
-.dashboard-card {
-  background: #f0f4ffcc;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-  padding: 2.5rem 3rem;
-  border: 1px solid #dbe2ff;
-  color: #2e3a8c;
+/* Link base */
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* Titolo dashboard grande e luminoso */
-.dashboard-title {
-  text-align: center;
-  font-weight: 900;
-  font-size: 2.8rem;
-  color: #1e3a8a;
-  margin-bottom: 2rem;
-  letter-spacing: 0.08em;
-  text-shadow: 0 2px 8px rgba(118, 75, 162, 0.7);
+/* ==== NAVBAR ==== */
+.custom-navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Saluto con font leggermente più piccolo e grassetto */
-.dashboard-greeting {
-  font-size: 1.7rem;
+.navbar-brand-custom {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.navbar-logo {
+  height: 78px;
+  border-radius: 10px;
+  box-shadow: none;
+  width: auto;
+  object-fit: cover;
+}
+
+.nav-links .nav-item-link {
+  color: #333 !important;
+  font-weight: 600;
+  margin-left: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links .nav-item-link:hover {
+  color: #0077b6 !important;
+  text-decoration: underline;
+}
+
+.nav-item-register {
+  color: #0077b6 !important;
   font-weight: 700;
-  margin-bottom: 1.2rem;
-  color: #374151;
+  margin-left: 1.5rem;
+  border: 2px solid #0077b6;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: all 0.3s ease;
 }
 
-/* Loading */
-.dashboard-loading {
-  color: #6b7280;
+.nav-item-register:hover {
+  background-color: #0077b6;
+  color: #fff !important;
+}
+
+.user-dropdown {
+  background: transparent !important;
+  border: none;
+  color: #0077b6 !important;
+  font-weight: bold;
+}
+
+/* ==== TITOLI ==== */
+.titolo {
   text-align: center;
-  font-style: italic;
-  font-weight: 500;
+  margin: 2rem 0;
 }
 
-.Dashboard-body{
-  background: white;
+.titolo-epic {
+  font-size: 2.8rem;
+  color: #0077b6;
+  text-shadow: 0 0 8px rgba(0, 119, 182, 0.6);
+}
+
+.titolo-accento {
+  color: #004e7c;
+  text-shadow: 0 0 6px rgba(0, 119, 182, 0.5);
+}
+
+/* ==== DASHBOARD ==== */
+.dashboard-body {
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(to right, #e6ecf4, #f8f9fb);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-greeting {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.dashboard-description {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.highlight-text {
+  color: #0077b6;
+  text-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
+}
+.text-neon {
+  color: #00ffe7;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(0, 255, 231, 0.7), 0 0 12px rgba(0, 255, 231, 0.5);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.text-neon:hover {
+  color: #00d8c9;
+  text-shadow: 0 0 12px rgba(0, 216, 201, 0.9), 0 0 20px rgba(0, 216, 201, 0.7);
+}
+/* CLIENTI */
+.clienti-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(to bottom right, #c5e0fb, #c0fdf6cc);
+}
+
+.clienti-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.clienti-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.cliente-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.cliente-card:hover {
+  transform: translateY(-4px);
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cliente-logo {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.logo-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #89bbf0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.cliente-info {
+  text-align: center;
+}
+
+.ragione-sociale {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.email {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.indirizzo {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pagination-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.pagination-text {
+  font-weight: 500;
+  color: #333;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  color: #666;
+}
+.clienti-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(to top right, #f4f8fb, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.clienti-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #003366;
+  text-shadow: 0 0 6px rgba(0, 119, 182, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.clienti-title i {
+  font-size: 1.8rem;
+  color: #0077b6;
+}
+/* About */
+.aboutus-body {
+  background: linear-gradient(135deg, #e6f0fb 0%, #f9fcff 100%);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.aboutus-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.aboutus-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 3rem 3.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.aboutus-card:hover {
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.18);
+}
+
+.aboutus-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #004e7c;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(0, 119, 182, 0.6);
+}
+
+.aboutus-image {
+  display: block;
+  max-width: 220px;
+  margin: 0 auto 2rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 119, 182, 0.25);
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.aboutus-image:hover {
+  transform: scale(1.07) rotate(1deg);
+  box-shadow: 0 12px 30px rgba(0, 119, 182, 0.45);
+}
+
+.aboutus-description {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #1a202c;
+  font-weight: 600;
+  max-width: 700px;
+  margin: 0 auto;
+  user-select: text;
+  letter-spacing: 0.03em;
+  word-spacing: 0.1em;
 }
