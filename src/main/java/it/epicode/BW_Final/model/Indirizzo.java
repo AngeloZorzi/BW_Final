@@ -1,5 +1,6 @@
 package it.epicode.BW_Final.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +23,9 @@ public class Indirizzo {
     private Comune comune;
 
     @OneToOne(mappedBy = "sedeLegale")
+    @JsonBackReference
     private Cliente clienteSedeLegale;
-
+    @JsonBackReference
     @OneToOne(mappedBy = "sedeOperativa")
     private Cliente clienteSedeOperativa;
 }

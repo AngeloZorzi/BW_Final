@@ -2,6 +2,7 @@ package it.epicode.BW_Final.controller;
 
 import it.epicode.BW_Final.dto.UtenteDto;
 import it.epicode.BW_Final.enumeration.RuoloTipo;
+import it.epicode.BW_Final.exception.NotFoundException;
 import it.epicode.BW_Final.model.Utente;
 import it.epicode.BW_Final.security.JwtUtil;
 import it.epicode.BW_Final.service.UtenteService;
@@ -64,4 +65,20 @@ public class AuthController {
 
         return ResponseEntity.ok(Map.of("token", token));
     }
+    @GetMapping("/me")
+    public ResponseEntity<?> getUserProfile(Authentication authentication){
+        String username = authentication.getName();
+
+        return utenteService.findByUsername(username)
+                .map(utente -> ResponseEntity.ok(Map.of(
+                        "username", utente.getUsername(),
+                        "nome", utente.getNome(),
+                        "cognome", utente.getCognome(),
+                        "email", utente.getEmail(),
+                        "avatar", utente.getAvatar(),
+                        "ruoli", utente.getRuoli().stream().map(Enum::name).toList()
+                )))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

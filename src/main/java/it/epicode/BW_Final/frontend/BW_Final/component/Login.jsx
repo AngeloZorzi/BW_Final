@@ -22,7 +22,7 @@ const Login = () => {
         const data = await response.json();
         localStorage.setItem("token", data.token);
         console.log({ username, password });
-        navigate("/me");
+        navigate("/");
       } else {
         setErrore("Credenziali non valide");
         console.log({ username, password });
