@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch("http://localhost:8081/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -22,7 +22,7 @@ const Login = () => {
         const data = await response.json();
         localStorage.setItem("token", data.token);
         console.log({ username, password });
-        navigate("/me");
+        navigate("/");
       } else {
         setErrore("Credenziali non valide");
         console.log({ username, password });

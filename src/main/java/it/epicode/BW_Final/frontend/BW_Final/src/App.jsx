@@ -7,6 +7,9 @@ import Registrazione from "../component/Registrazione";
 import Titolo from "../component/Titolo";
 import BarraSuperiore from "../component/BarraSuperiore";
 import BarraLaterale from "../component/BarraLaterale";
+import Clienti from "../component/Clienti";
+import AboutUs from "../component/AboutUs";
+
 const App = () => {
   const isLoggedIn = !!localStorage.getItem("token");
 
@@ -30,12 +33,14 @@ const App = () => {
           </>
         }
       />
+      <Route path="/clienti" element={<Clienti />} />
+      <Route path="/about" element={<AboutUs />} />
       <Route path="/register" element={<Registrazione />} />
       <Route path="/login" element={<Login />} />
 
       <Route
         path="*"
-        element={<Navigate to={isLoggedIn ? "/me" : "/login"} replace />}
+        element={<Navigate to={isLoggedIn ? "/" : "/login"} replace />}
       />
     </Routes>
   );
