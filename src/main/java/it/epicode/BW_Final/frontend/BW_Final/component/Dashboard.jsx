@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:8081/auth/me", {
+      fetch("http://localhost:8080/auth/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +73,11 @@ const Dashboard = () => {
                 </Nav.Link>
               )}
               {token && isAdmin && (
-                <Nav.Link as={Link} to="/admin" className="nav-item-link me-3">
+                <Nav.Link
+                  as={Link}
+                  to="/amministratore"
+                  className="nav-item-link me-3"
+                >
                   Area Admin
                 </Nav.Link>
               )}

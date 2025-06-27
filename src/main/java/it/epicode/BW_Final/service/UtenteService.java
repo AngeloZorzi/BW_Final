@@ -33,8 +33,8 @@ public class UtenteService {
         return utenteRepository.findByEmail(email);
     }
 
-    public Utente findByUsername(String username) throws NotFoundException {
-        return utenteRepository.findByUsername(username).orElseThrow(()-> new NotFoundException("Utente non trovato"));
+    public Optional<Utente> findByUsername(String username) {
+        return utenteRepository.findByUsername(username);
     }
 
     public Page<Utente> getAllUtentePaginati(Pageable pageable) {

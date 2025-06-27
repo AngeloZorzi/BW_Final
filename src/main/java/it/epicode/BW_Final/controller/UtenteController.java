@@ -23,10 +23,9 @@ import java.util.Map;
 @RequestMapping("/amministratore")
 @RequiredArgsConstructor
 public class UtenteController {
-    @Autowired
-    private  JwtUtil jwtUtil;
-    @Autowired
-    private UtenteService utenteService;
+
+    private final JwtUtil jwtUtil;
+    private final UtenteService utenteService;
 
     @GetMapping
     public ResponseEntity<?> getCurrentUser(HttpServletRequest request) throws NotFoundException {
@@ -37,7 +36,8 @@ public class UtenteController {
         }
         String token = authHeader.substring(7);
         String username = jwtUtil.extractUsername(token);
-        Utente utente = utenteService.findByUsername(username);
+        Utente utente = utenteService.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("Utente non trovato"));
         return ResponseEntity.ok(Map.of("utente", utente));
     }
 

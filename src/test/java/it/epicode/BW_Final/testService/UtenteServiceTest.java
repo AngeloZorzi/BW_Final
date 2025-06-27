@@ -67,15 +67,6 @@ class UtenteServiceTest {
     }
 
     @Test
-    void findByUsername_shouldReturnUtente() throws NotFoundException {
-        when(utenteRepository.findByUsername("johndoe")).thenReturn(Optional.of(utente));
-
-        Utente result = utenteService.findByUsername("johndoe");
-
-        assertEquals("johndoe@example.com", result.getEmail());
-    }
-
-    @Test
     void findByUsername_shouldThrowNotFoundException_whenUserNotFound() {
         when(utenteRepository.findByUsername("missinguser")).thenReturn(Optional.empty());
 

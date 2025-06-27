@@ -20,7 +20,7 @@ const Clienti = () => {
     }
 
     fetch(
-      `http://localhost:8081/api/clienti?page=${page}&size=${size}&sortBy=${sortBy}`,
+      `http://localhost:8080/api/clienti?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
