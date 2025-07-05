@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { HiInformationCircle } from "react-icons/hi2";
 import { ImMail4 } from "react-icons/im";
-import Clienti from "./Clienti";
+import Clienti2 from "./Clienti2";
 import DashbordAmministratore from "./DashbordAmministratore";
 
 const BarraLaterale = () => {
@@ -90,10 +90,10 @@ const BarraLaterale = () => {
           </div>
         </span>
       </Container>
-      <div className="w-100">
+      <div className="w-100 ">
         {sezioneAttiva === "dashboard" && <DashbordAmministratore />}
+        {sezioneAttiva === "clienti" && <Clienti2 />}
       </div>
-      <div className="d-flex">{sezioneAttiva === "clienti" && <Clienti />}</div>
     </div>
   );
 };
